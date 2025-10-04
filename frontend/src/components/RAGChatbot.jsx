@@ -88,7 +88,6 @@ const RAGChatbot = () => {
 
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">💬</div>
           <div>
             <h3 className="card-title">Chat Assistant</h3>
           </div>
@@ -101,7 +100,7 @@ const RAGChatbot = () => {
               {messages.map((message) => (
                 <div key={message.id} className={`chat-message ${message.sender}`}>
                   <div className={`chat-avatar ${message.sender}`}>
-                    {message.sender === 'user' ? '👤' : '🤖'}
+                    {message.sender === 'user' ? 'U' : 'AI'}
                   </div>
                   <div className={`chat-bubble ${message.sender}`}>
                     {message.text}

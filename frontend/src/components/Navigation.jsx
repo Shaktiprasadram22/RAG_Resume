@@ -23,7 +23,7 @@ const Navigation = () => {
           </div>
           <div className="role-badge">
             <span className={`badge ${isRecruiter ? 'recruiter' : 'candidate'}`}>
-              {isRecruiter ? '👔 Recruiter' : '👤 Job Seeker'}
+              {isRecruiter ? 'Recruiter' : 'Job Seeker'}
             </span>
           </div>
         </div>

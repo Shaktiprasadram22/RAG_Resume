@@ -141,13 +141,13 @@ const KeywordOptimization = () => {
                 color: 'var(--color-error)',
                 marginBottom: 'var(--spacing-md)'
               }}>
-                ❌ {error}
+                {error}
               </div>
             )}
 
             {/* Analyze Button */}
             <button type="submit" className="btn btn-primary" disabled={isAnalyzing || !selectedResumeId}>
-              {isAnalyzing ? '🔄 Analyzing...' : '🔍 Analyze Keywords'}
+              {isAnalyzing ? 'Analyzing...' : 'Analyze Keywords'}
             </button>
           </form>
 
@@ -178,7 +178,7 @@ const KeywordOptimization = () => {
               {/* Matched Keywords */}
               <div style={{ marginBottom: 'var(--spacing-xl)' }}>
                 <h4 style={{ marginBottom: 'var(--spacing-md)', color: 'var(--color-success)' }}>
-                  ✓ Matched Keywords ({analysis.matchedKeywords.length})
+                  Matched Keywords ({analysis.matchedKeywords.length})
                 </h4>
                 <div className="keyword-grid">
                   {analysis.matchedKeywords.map((keyword, index) => (
@@ -192,7 +192,7 @@ const KeywordOptimization = () => {
               {/* Missing Keywords */}
               <div style={{ marginBottom: 'var(--spacing-xl)' }}>
                 <h4 style={{ marginBottom: 'var(--spacing-md)', color: 'var(--color-warning)' }}>
-                  ⚠ Missing Keywords ({analysis.missingKeywords.length})
+                  Missing Keywords ({analysis.missingKeywords.length})
                 </h4>
                 <div className="keyword-grid">
                   {analysis.missingKeywords.map((keyword, index) => (
@@ -205,7 +205,7 @@ const KeywordOptimization = () => {
 
               {/* Suggestions */}
               <div>
-                <h4 style={{ marginBottom: 'var(--spacing-md)' }}>💡 Optimization Suggestions</h4>
+                <h4 style={{ marginBottom: 'var(--spacing-md)' }}>Optimization Suggestions</h4>
                 <div style={{ background: 'white', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', padding: 'var(--spacing-lg)' }}>
                   {analysis.suggestions.map((suggestion, index) => (
                     <div key={index} style={{ 

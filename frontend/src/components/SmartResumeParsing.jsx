@@ -59,7 +59,7 @@ const SmartResumeParsing = () => {
         
         // Display parsed information
         setPreviewText(
-          `✅ Resume Parsed Successfully!\n\n` +
+          `Resume Parsed Successfully!\n\n` +
           `Uploaded by: ${user.name}\n` +
           `Name (from resume): ${summary.name}\n` +
           `Email: ${summary.email || 'Not found'}\n` +
@@ -91,7 +91,6 @@ const SmartResumeParsing = () => {
 
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">📄</div>
           <div>
             <h3 className="card-title">Upload Resume</h3>
           </div>
@@ -104,7 +103,6 @@ const SmartResumeParsing = () => {
               className="file-upload-zone" 
               onClick={() => document.getElementById('resume-upload').click()}
             >
-              <div className="file-upload-icon">📁</div>
               <div className="file-upload-text">
                 {selectedFile ? selectedFile.name : 'Click to upload or drag and drop'}
               </div>
@@ -143,7 +141,7 @@ const SmartResumeParsing = () => {
                 borderRadius: 'var(--radius-md)',
                 color: 'var(--color-error)'
               }}>
-                ❌ {error}
+                {error}
               </div>
             )}
 
@@ -156,13 +154,13 @@ const SmartResumeParsing = () => {
                 borderRadius: 'var(--radius-md)',
                 color: 'var(--color-success)'
               }}>
-                ✅ Resume uploaded and parsed successfully!
+                Resume uploaded and parsed successfully!
               </div>
             )}
 
             {/* Submit Button */}
             <button type="submit" className="btn btn-primary mt-1" disabled={loading}>
-              {loading ? '⏳ Parsing...' : '🚀 Parse Resume'}
+              {loading ? 'Parsing...' : 'Parse Resume'}
             </button>
           </form>
         </div>

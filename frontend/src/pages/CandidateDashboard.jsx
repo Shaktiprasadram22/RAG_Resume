@@ -13,28 +13,24 @@ const CandidateDashboard = () => {
       id: 'upload-resume',
       title: 'Upload My Resume',
       description: 'Upload your CV to get started - PDF or DOCX format supported',
-      icon: '📄',
       component: SmartResumeParsing
     },
     {
       id: 'keyword-optimization',
       title: 'ATS Optimization Helper',
       description: 'Optimize your resume for Applicant Tracking Systems and get higher match scores',
-      icon: '📊',
       component: KeywordOptimization
     },
     {
       id: 'ai-summary',
       title: 'AI Resume Summary',
       description: 'Generate professional summaries and cover letters tailored to job descriptions',
-      icon: '✨',
       component: AISummaryGeneration
     },
     {
       id: 'chatbot',
       title: 'Career Coach Chatbot',
       description: 'Get career advice, resume tips, and interview preparation guidance',
-      icon: '💬',
       component: RAGChatbot
     }
   ];
@@ -59,7 +55,6 @@ const CandidateDashboard = () => {
                 className="feature-card"
                 onClick={() => setActiveFeature(feature.id)}
               >
-                <div className="feature-icon">{feature.icon}</div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
                 <button className="feature-button">
@@ -70,7 +65,7 @@ const CandidateDashboard = () => {
           </div>
 
           <div className="tips-section">
-            <h3>💡 Quick Tips for Job Seekers</h3>
+            <h3>Quick Tips for Job Seekers</h3>
             <div className="tips-grid">
               <div className="tip-card">
                 <strong>Upload Your Resume First</strong>

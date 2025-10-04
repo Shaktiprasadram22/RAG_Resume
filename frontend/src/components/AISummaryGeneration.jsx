@@ -79,7 +79,6 @@ const AISummaryGeneration = () => {
 
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">✨</div>
           <div>
             <h3 className="card-title">Create AI-Powered Summary</h3>
           </div>
@@ -118,13 +117,13 @@ const AISummaryGeneration = () => {
                 color: 'var(--color-error)',
                 marginBottom: 'var(--spacing-md)'
               }}>
-                ❌ {error}
+                {error}
               </div>
             )}
 
             {/* Generate Button */}
             <button type="submit" className="btn btn-primary" disabled={isGenerating || !selectedResume}>
-              {isGenerating ? '⏳ Generating...' : '✨ Generate Summary'}
+              {isGenerating ? 'Generating...' : 'Generate Summary'}
             </button>
           </form>
 

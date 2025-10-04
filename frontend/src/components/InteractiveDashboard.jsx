@@ -33,25 +33,21 @@ const InteractiveDashboard = () => {
     {
       label: 'Total Resumes',
       value: '1,248',
-      icon: '📄',
       color: 'var(--color-primary)'
     },
     {
       label: 'Active Jobs',
       value: '356',
-      icon: '💼',
       color: 'var(--color-success)'
     },
     {
       label: 'Matches Found',
       value: '892',
-      icon: '🎯',
       color: 'var(--color-info)'
     },
     {
       label: 'Success Rate',
       value: '94%',
-      icon: '📈',
       color: 'var(--color-warning)'
     }]);
       }
@@ -64,10 +60,10 @@ const InteractiveDashboard = () => {
       setError('Failed to load dashboard data');
       // Set fallback mock data
       setStats([
-        { label: 'Total Resumes', value: '248', icon: '📄', color: 'var(--color-primary)' },
-        { label: 'Active Jobs', value: '56', icon: '💼', color: 'var(--color-success)' },
-        { label: 'Matches Found', value: '192', icon: '🎯', color: 'var(--color-info)' },
-        { label: 'Success Rate', value: '84%', icon: '📈', color: 'var(--color-warning)' }
+        { label: 'Total Resumes', value: '248', color: 'var(--color-primary)' },
+        { label: 'Active Jobs', value: '56', color: 'var(--color-success)' },
+        { label: 'Matches Found', value: '192', color: 'var(--color-info)' },
+        { label: 'Success Rate', value: '84%', color: 'var(--color-warning)' }
       ]);
     } finally {
       setLoading(false);
@@ -84,8 +80,7 @@ const InteractiveDashboard = () => {
       {/* Loading State */}
       {loading && (
         <div style={{ textAlign: 'center', padding: 'var(--spacing-2xl)' }}>
-          <div style={{ fontSize: 'var(--font-size-3xl)' }}>⏳</div>
-          <div style={{ color: 'var(--color-text-secondary)', marginTop: 'var(--spacing-md)' }}>Loading dashboard...</div>
+          <div style={{ color: 'var(--color-text-secondary)' }}>Loading dashboard...</div>
         </div>
       )}
 
@@ -99,7 +94,7 @@ const InteractiveDashboard = () => {
           color: 'var(--color-error)',
           marginBottom: 'var(--spacing-lg)'
         }}>
-          ❌ {error}
+          {error}
         </div>
       )}
 
@@ -108,9 +103,6 @@ const InteractiveDashboard = () => {
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <div key={index} className="stat-card">
-            <div style={{ fontSize: 'var(--font-size-3xl)', marginBottom: 'var(--spacing-sm)' }}>
-              {stat.icon}
-            </div>
             <div className="stat-value" style={{ color: stat.color }}>
               {stat.value}
             </div>
@@ -123,7 +115,6 @@ const InteractiveDashboard = () => {
       {/* Charts Section */}
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">📊</div>
           <div>
             <h3 className="card-title">Analytics Overview</h3>
           </div>
@@ -162,7 +153,6 @@ const InteractiveDashboard = () => {
           {/* Chart Placeholder 1 */}
           <div className="chart-placeholder">
             <div>
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-sm)' }}>📊</div>
               <div>Resume Submissions Over Time</div>
               <div style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--spacing-xs)' }}>
                 (Chart integration coming soon)
@@ -173,7 +163,6 @@ const InteractiveDashboard = () => {
           {/* Chart Placeholder 2 */}
           <div className="chart-placeholder">
             <div>
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-sm)' }}>🥧</div>
               <div>Top Skills Distribution</div>
               <div style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--spacing-xs)' }}>
                 (Chart integration coming soon)
@@ -184,7 +173,6 @@ const InteractiveDashboard = () => {
           {/* Chart Placeholder 3 */}
           <div className="chart-placeholder">
             <div>
-              <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-sm)' }}>📈</div>
               <div>Match Success Trends</div>
               <div style={{ fontSize: 'var(--font-size-sm)', marginTop: 'var(--spacing-xs)' }}>
                 (Chart integration coming soon)

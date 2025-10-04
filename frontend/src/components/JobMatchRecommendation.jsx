@@ -135,7 +135,6 @@ const JobMatchRecommendation = () => {
 
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">🎯</div>
           <div>
             <h3 className="card-title">Best Job Matches</h3>
           </div>

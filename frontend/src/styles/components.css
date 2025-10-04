@@ -1,11 +1,11 @@
-/* Component Styles - Clean & Minimal */
+/* Component Styles - Premium Hacker Theme */
 
 /* Card Component */
 .card {
   background: var(--bg-card);
   border-radius: 8px;
   padding: var(--space-6);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   margin-bottom: var(--space-6);
   border: 1px solid var(--border-light);
 }
@@ -22,12 +22,12 @@
 .card-icon {
   width: 40px;
   height: 40px;
-  background: var(--cyan-500);
+  background: var(--amber-400);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #000000;
   font-size: 1.2rem;
   font-weight: 700;
 }
@@ -55,14 +55,12 @@
 }
 
 .file-upload-zone:hover {
-  border-color: var(--cyan-500);
+  border-color: var(--amber-400);
   background: var(--bg-hover);
 }
 
 .file-upload-icon {
-  font-size: 3rem;
-  color: var(--cyan-500);
-  margin-bottom: var(--space-4);
+  display: none;
 }
 
 .file-upload-text {
@@ -96,8 +94,8 @@
 }
 
 .search-input:focus {
-  border-color: var(--cyan-500);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+  border-color: var(--amber-400);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.1);
   outline: none;
 }
 
@@ -112,8 +110,8 @@
 }
 
 .result-card:hover {
-  border-color: var(--border-normal);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-color: var(--amber-400);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .result-header {
@@ -131,8 +129,8 @@
 }
 
 .result-score {
-  background: var(--cyan-500);
-  color: white;
+  background: var(--amber-400);
+  color: #000000;
   padding: var(--space-2) var(--space-4);
   border-radius: 20px;
   font-size: 0.85rem;
@@ -166,7 +164,7 @@
 .match-percentage {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--cyan-500);
+  color: var(--amber-400);
 }
 
 .match-bar-container {
@@ -179,7 +177,7 @@
 
 .match-bar {
   height: 100%;
-  background: var(--cyan-500);
+  background: var(--amber-400);
   border-radius: 4px;
   transition: width 0.3s ease;
 }
@@ -196,8 +194,8 @@
 }
 
 .badge-primary {
-  background: rgba(34, 211, 238, 0.1);
-  color: var(--cyan-600);
+  background: rgba(250, 204, 21, 0.1);
+  color: var(--amber-400);
   border: 1px solid var(--border-light);
 }
 
@@ -260,8 +258,8 @@
 }
 
 .chat-avatar.user {
-  background: var(--cyan-500);
-  color: white;
+  background: var(--amber-400);
+  color: #000000;
 }
 
 .chat-avatar.bot {
@@ -278,8 +276,8 @@
 }
 
 .chat-bubble.user {
-  background: var(--cyan-500);
-  color: white;
+  background: var(--amber-400);
+  color: #000000;
 }
 
 .chat-bubble.bot {
@@ -306,8 +304,8 @@
 
 .chat-input:focus {
   outline: none;
-  border-color: var(--cyan-500);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+  border-color: var(--amber-400);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.1);
 }
 
 /* Dashboard Stats */
@@ -323,7 +321,7 @@
   padding: var(--space-5);
   border-radius: 8px;
   border: 1px solid var(--border-light);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .stat-value {

@@ -1,10 +1,10 @@
-/* Dashboard - Clean & Minimal Design */
+/* Dashboard - Premium Hacker Theme */
 
 /* Dashboard Navbar */
 .dashboard-navbar {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-light);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .navbar-content {
@@ -34,12 +34,12 @@
 .logo-icon {
   width: 36px;
   height: 36px;
-  background: var(--cyan-500);
+  background: var(--amber-400);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #000000;
   font-size: 1.1rem;
   font-weight: 700;
 }
@@ -60,15 +60,15 @@
 }
 
 .badge.recruiter {
-  background: #dbeafe;
-  color: #1e40af;
-  border: 1px solid #93c5fd;
+  background: rgba(250, 204, 21, 0.1);
+  color: var(--amber-400);
+  border: 1px solid var(--border-normal);
 }
 
 .badge.candidate {
-  background: #d1fae5;
-  color: #065f46;
-  border: 1px solid #6ee7b7;
+  background: rgba(250, 204, 21, 0.1);
+  color: var(--amber-400);
+  border: 1px solid var(--border-normal);
 }
 
 .navbar-right {
@@ -87,11 +87,11 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--cyan-500);
+  background: var(--amber-400);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #000000;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -177,21 +177,21 @@
   background: var(--bg-card);
   border-radius: 8px;
   padding: var(--space-6);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-light);
   transition: border-color 0.15s, box-shadow 0.15s;
   cursor: pointer;
 }
 
 .feature-card:hover {
-  border-color: var(--border-normal);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: var(--amber-400);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .feature-icon {
   font-size: 2.5rem;
   margin-bottom: var(--space-4);
-  display: block;
+  display: none;
 }
 
 .feature-card h3 {
@@ -212,8 +212,8 @@
 .feature-button {
   width: 100%;
   padding: var(--space-3) var(--space-5);
-  background: var(--cyan-500);
-  color: white;
+  background: var(--amber-400);
+  color: #000000;
   border: none;
   border-radius: 6px;
   font-size: 0.95rem;
@@ -223,7 +223,7 @@
 }
 
 .feature-button:hover {
-  background: var(--cyan-600);
+  background: var(--amber-500);
 }
 
 /* Feature View */
@@ -265,7 +265,7 @@
   background: var(--bg-card);
   border-radius: 8px;
   padding: var(--space-6);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-light);
 }
 
@@ -275,7 +275,7 @@
   background: var(--bg-card);
   border-radius: 8px;
   padding: var(--space-6);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-light);
 }
 
@@ -296,7 +296,7 @@
   background: var(--bg-primary);
   padding: var(--space-5);
   border-radius: 6px;
-  border-left: 3px solid var(--cyan-500);
+  border-left: 3px solid var(--amber-400);
 }
 
 .tip-card strong {

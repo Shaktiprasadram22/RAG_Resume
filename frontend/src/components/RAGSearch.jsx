@@ -48,7 +48,6 @@ const RAGSearch = () => {
 
       <div className="card">
         <div className="card-header">
-          <div className="card-icon">🔍</div>
           <div>
             <h3 className="card-title">Intelligent Resume Search</h3>
           </div>
@@ -68,7 +67,7 @@ const RAGSearch = () => {
               />
             </div>
             <button type="submit" className="btn btn-primary" disabled={isSearching}>
-              {isSearching ? '🔄 Searching...' : '🔍 Search Resumes'}
+              {isSearching ? 'Searching...' : 'Search Resumes'}
             </button>
           </form>
 
@@ -81,7 +80,7 @@ const RAGSearch = () => {
               borderRadius: 'var(--radius-md)',
               color: 'var(--color-error)'
             }}>
-              ❌ {error}
+              {error}
             </div>
           )}
 
@@ -95,20 +94,20 @@ const RAGSearch = () => {
                 <div key={result.id || result._id} className="result-card" style={{ 
                   marginBottom: '1.5rem', 
                   padding: '1.5rem', 
-                  background: 'white',
-                  border: '1px solid #e5e7eb',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-light)',
                   borderRadius: '8px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
                 }}>
                   {/* Header with Match Score */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '2px solid #667eea' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.25rem', color: '#1a202c' }}>
-                      📄 CV: {result.filename || 'Resume'}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '2px solid var(--amber-400)' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--text-primary)' }}>
+                      CV: {result.filename || 'Resume'}
                     </h3>
                     <span style={{ 
                       padding: '0.5rem 1rem', 
-                      background: '#10b981', 
-                      color: 'white', 
+                      background: 'var(--amber-400)', 
+                      color: '#000000', 
                       borderRadius: '20px',
                       fontWeight: 'bold'
                     }}>
@@ -130,10 +129,11 @@ const RAGSearch = () => {
                           {result.skills.map((skill, idx) => (
                             <span key={idx} style={{
                               padding: '0.25rem 0.75rem',
-                              background: '#667eea',
-                              color: 'white',
+                              background: 'var(--amber-400)',
+                              color: '#000000',
                               borderRadius: '4px',
-                              fontSize: '0.875rem'
+                              fontSize: '0.875rem',
+                              fontWeight: '600'
                             }}>
                               {skill}
                             </span>
@@ -161,7 +161,6 @@ const RAGSearch = () => {
           {/* Empty State */}
           {results.length === 0 && searchQuery && !isSearching && (
             <div className="empty-state">
-              <div className="empty-state-icon">📭</div>
               <div className="empty-state-text">No results found</div>
             </div>
           )}

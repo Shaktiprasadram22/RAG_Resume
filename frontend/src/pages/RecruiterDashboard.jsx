@@ -15,42 +15,36 @@ const RecruiterDashboard = () => {
       id: 'resume-parsing',
       title: 'Smart Resume Parsing',
       description: 'Upload and parse PDF/DOCX resumes with AI-powered extraction',
-      icon: '📄',
       component: SmartResumeParsing
     },
     {
       id: 'rag-search',
       title: 'RAG-based Semantic Search',
       description: 'Find the best candidates using natural language job descriptions',
-      icon: '🔍',
       component: RAGSearch
     },
     {
       id: 'job-match',
       title: 'Job Match Recommendation',
       description: 'Get AI-powered candidate recommendations for your job postings',
-      icon: '🎯',
       component: JobMatchRecommendation
     },
     {
       id: 'ai-summary',
       title: 'AI Summary Generation',
       description: 'Generate professional summaries for candidate profiles',
-      icon: '✨',
       component: AISummaryGeneration
     },
     {
       id: 'keyword-optimization',
       title: 'ATS & Keyword Helper',
       description: 'Analyze resume-job match and calculate ATS scores',
-      icon: '📊',
       component: KeywordOptimization
     },
     {
       id: 'chatbot',
       title: 'RAG Chatbot',
       description: 'AI assistant for recruitment queries and insights',
-      icon: '💬',
       component: RAGChatbot
     }
   ];
@@ -75,7 +69,6 @@ const RecruiterDashboard = () => {
                 className="feature-card"
                 onClick={() => setActiveFeature(feature.id)}
               >
-                <div className="feature-icon">{feature.icon}</div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
                 <button className="feature-button">
