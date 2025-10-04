@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { getAllResumes, optimizeKeywords } from '../api/api';
-
+import { useAuth } from '../context/AuthContext';
 /**
  * KeywordOptimization Component
  * Analyze resume against job description and suggest missing keywords
  */
 const KeywordOptimization = () => {
+  const { user } = useAuth();
   const [resumes, setResumes] = useState([]);
   const [selectedResumeId, setSelectedResumeId] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [loadingResumes, setLoadingResumes] = useState(true);
   const [error, setError] = useState(null);
-
-  // Load resumes on mount
-  useEffect(() => {
-    loadResumes();
-  }, []);
 
   const loadResumes = async () => {
     try {
-      const response = await getAllResumes({ limit: 20 });
+      const params = { limit: 20 };
+      if (user) {
+        params.userId = user.id;
+        params.userRole = user.role;
+      }
+      const response = await getAllResumes(params);
       if (response.success) {
         setResumes(response.data.resumes || []);
+        setLoadingResumes(false);
       }
     } catch (err) {
       console.error('Error loading resumes:', err);
+      setLoadingResumes(false);
+      setError(err.response?.data?.message || 'Failed to load resumes. Please try again.');
     }
   };
+
+  useEffect(() => {
+    loadResumes();
+  }, [user]);
 
   // Handle analysis
   const handleAnalyze = async (event) => {

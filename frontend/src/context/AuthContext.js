@@ -24,12 +24,63 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (email, password, role) => {
-    // Simple mock authentication - replace with real API call
+    // Get all registered users
+    const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    
+    // Find user by email and password
+    const existingUser = users.find(u => u.email === email && u.password === password);
+    
+    if (!existingUser) {
+      return Promise.reject(new Error('Invalid email or password'));
+    }
+    
+    // Check if the role matches
+    if (existingUser.role !== role) {
+      return Promise.reject(new Error(`This account is registered as a ${existingUser.role}. Please use the ${existingUser.role} login page.`));
+    }
+    
+    // Create user session (without password)
     const userData = {
+      email: existingUser.email,
+      role: existingUser.role,
+      name: existingUser.name,
+      id: existingUser.id
+    };
+    
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    return Promise.resolve(userData);
+  };
+
+  const signup = (name, email, password, role) => {
+    // Get all registered users
+    const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    
+    // Check if email already exists
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+      return Promise.reject(new Error('Email already registered'));
+    }
+    
+    // Create new user account
+    const newUser = {
       email,
+      password, // In production, this should be hashed!
       role,
-      name: email.split('@')[0],
+      name,
       id: Date.now()
+    };
+    
+    // Add to registered users
+    users.push(newUser);
+    localStorage.setItem('registeredUsers', JSON.stringify(users));
+    
+    // Create user session (without password)
+    const userData = {
+      email: newUser.email,
+      role: newUser.role,
+      name: newUser.name,
+      id: newUser.id
     };
     
     setUser(userData);
@@ -45,6 +96,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     login,
+    signup,
     logout,
     loading,
     isAuthenticated: !!user,

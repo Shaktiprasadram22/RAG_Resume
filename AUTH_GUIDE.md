@@ -28,21 +28,39 @@ ResumeRAG now features a complete role-based authentication system with separate
 
 ---
 
-## 📋 Login Pages
+## 📋 Authentication Pages
 
-### Recruiter Login
+### Login Pages
+
+#### Recruiter Login
 - **URL:** `/login/recruiter`
 - **Demo Credentials:**
   - Email: `demo@recruiter.com`
   - Password: `password`
 
-### Job Seeker Login
+#### Job Seeker Login
 - **URL:** `/login/candidate`
 - **Demo Credentials:**
   - Email: `demo@candidate.com`
   - Password: `password`
 
-You can switch between login pages using the link at the bottom of each login form.
+### Signup Pages
+
+#### Recruiter Signup
+- **URL:** `/signup/recruiter`
+- Create a new recruiter account with:
+  - Full Name
+  - Email Address
+  - Password (min 6 characters)
+  - Confirm Password
+
+#### Job Seeker Signup
+- **URL:** `/signup/candidate`
+- Create a new job seeker account with same fields
+
+You can:
+- Switch between Login/Signup using the link at the bottom
+- Switch between Recruiter/Candidate roles from any auth page
 
 ---
 
@@ -73,12 +91,7 @@ The recruiter dashboard provides access to all recruitment tools:
    - ATS score calculation
    - Keyword optimization
 
-6. **📈 Interactive Dashboard**
-   - Recruitment analytics
-   - Top skills analysis
-   - Submission trends
-
-7. **💬 RAG Chatbot**
+6. **💬 RAG Chatbot**
    - AI assistant for recruitment queries
    - Candidate insights
 
@@ -90,17 +103,22 @@ The recruiter dashboard provides access to all recruitment tools:
 
 The job seeker dashboard focuses on career development tools:
 
-1. **📊 ATS Optimization Helper**
+1. **📄 Upload My Resume**
+   - Upload your CV (PDF or DOCX)
+   - AI-powered extraction of your details
+   - Store your resume for analysis
+
+2. **📊 ATS Optimization Helper**
    - Optimize resume for Applicant Tracking Systems
    - Keyword matching with job descriptions
    - Get higher match scores
 
-2. **✨ AI Resume Summary**
+3. **✨ AI Resume Summary**
    - Generate professional summaries
    - Create tailored cover letters
    - Job-specific content generation
 
-3. **💬 Career Coach Chatbot**
+4. **💬 Career Coach Chatbot**
    - Career advice and guidance
    - Resume improvement tips
    - Interview preparation help
@@ -151,6 +169,7 @@ frontend/src/
 
 ## 🔐 Authentication Flow
 
+### Login Flow
 ```
 1. User visits app → Redirected to /login/recruiter
 2. User enters credentials → AuthContext.login()
@@ -158,22 +177,40 @@ frontend/src/
 4. Redirect to /dashboard/{role}
 5. ProtectedRoute validates authentication
 6. Dashboard renders with role-specific features
-7. User clicks feature card → Component loads
-8. User clicks "Back" → Returns to dashboard
-9. User clicks "Logout" → Clear state → Redirect to login
+```
+
+### Signup Flow
+```
+1. User clicks "Create Account" from login page
+2. Navigates to /signup/{role}
+3. User fills signup form (name, email, password, confirm password)
+4. Form validation (required fields, password match, min length)
+5. On success → AuthContext.signup()
+6. User data stored in state + localStorage
+7. Automatically redirected to /dashboard/{role}
+```
+
+### Dashboard Flow
+```
+1. User in dashboard clicks feature card → Component loads
+2. User clicks "Back" → Returns to dashboard
+3. User clicks "Logout" → Clear state → Redirect to login
 ```
 
 ---
 
 ## 🎨 Design Features
 
-### Login Pages
-- Modern gradient background
+### Login & Signup Pages
+- Modern gradient background (purple theme)
 - Clean, professional card design
 - Role-specific messaging
-- Demo credentials display
-- Easy role switching
-- Smooth animations
+- Form validation with error messages
+- Password visibility toggle ready
+- Easy navigation between login/signup
+- Easy role switching (recruiter ↔ candidate)
+- Smooth animations and transitions
+- Responsive mobile-first design
 
 ### Dashboards
 - Card-based feature grid
@@ -199,6 +236,8 @@ frontend/src/
 | `/` | Public | `/login/recruiter` |
 | `/login/recruiter` | Public | Dashboard on login |
 | `/login/candidate` | Public | Dashboard on login |
+| `/signup/recruiter` | Public | Dashboard on signup |
+| `/signup/candidate` | Public | Dashboard on signup |
 | `/dashboard/recruiter` | Recruiter only | Login if not authenticated |
 | `/dashboard/candidate` | Candidate only | Login if not authenticated |
 | `*` (404) | Public | `/login/recruiter` |
@@ -251,8 +290,21 @@ const login = async (email, password, role) => {
 
 ## 🎯 Demo Usage
 
-### Testing Recruiter Flow
+### Testing Recruiter Signup & Login
 
+**Option 1: Signup**
+1. Go to `http://localhost:3000/signup/recruiter`
+2. Fill in:
+   - Name: `John Recruiter`
+   - Email: `john@company.com`
+   - Password: `password123`
+   - Confirm Password: `password123`
+3. Click "Create Account"
+4. You'll be automatically logged in and redirected to recruiter dashboard
+5. Click "Smart Resume Parsing" to test features
+6. Click "Logout" when done
+
+**Option 2: Demo Login**
 1. Go to `http://localhost:3000/login/recruiter`
 2. Enter: `demo@recruiter.com` / `password`
 3. Click "Smart Resume Parsing"
@@ -261,8 +313,21 @@ const login = async (email, password, role) => {
 6. Try other features
 7. Click "Logout"
 
-### Testing Candidate Flow
+### Testing Candidate Signup & Login
 
+**Option 1: Signup**
+1. Go to `http://localhost:3000/signup/candidate`
+2. Fill in:
+   - Name: `Jane Candidate`
+   - Email: `jane@email.com`
+   - Password: `mypassword`
+   - Confirm Password: `mypassword`
+3. Click "Create Account"
+4. You'll be automatically logged in and redirected to candidate dashboard
+5. Try "ATS Optimization Helper"
+6. Click "Logout" when done
+
+**Option 2: Demo Login**
 1. Go to `http://localhost:3000/login/candidate`
 2. Enter: `demo@candidate.com` / `password`
 3. Click "ATS Optimization Helper"

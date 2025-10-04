@@ -3,14 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/auth.css';
 
-const Login = () => {
+const Signup = () => {
   const { role } = useParams();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signup } = useAuth();
   
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,17 +32,30 @@ const Login = () => {
     setError('');
     setLoading(true);
 
-    if (!formData.email || !formData.password) {
+    // Validation
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields');
       setLoading(false);
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      setLoading(false);
+      return;
+    }
+
     try {
-      await login(formData.email, formData.password, role);
+      await signup(formData.name, formData.email, formData.password, role);
       navigate(`/dashboard/${role}`);
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      setError('Failed to create account. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -54,11 +69,11 @@ const Login = () => {
             <div className="logo-icon-large">R</div>
             <h1>ResumeRAG</h1>
           </div>
-          <h2>{isRecruiter ? 'Recruiter' : 'Job Seeker'} Login</h2>
+          <h2>Create {isRecruiter ? 'Recruiter' : 'Job Seeker'} Account</h2>
           <p className="login-subtitle">
             {isRecruiter 
-              ? 'Access your recruitment dashboard'
-              : 'Optimize your resume and find opportunities'
+              ? 'Join our recruitment platform and find top talent'
+              : 'Start your journey to landing your dream job'
             }
           </p>
         </div>
@@ -72,6 +87,19 @@ const Login = () => {
               {error}
             </div>
           )}
+
+          <div className="form-group">
+            <label htmlFor="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="John Doe"
+              required
+            />
+          </div>
 
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -97,39 +125,53 @@ const Login = () => {
               placeholder="••••••••"
               required
             />
+            <small className="form-hint">At least 6 characters</small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="••••••••"
+              required
+            />
           </div>
 
           <button type="submit" className="login-button" disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="login-footer">
           <p>
-            Don't have an account?
+            Already have an account?
             {' '}
-            <a href={`/signup/${role}`}>
-              Create Account
+            <a href={`/login/${role}`}>
+              Sign In
             </a>
           </p>
           <p style={{ marginTop: '0.5rem' }}>
             {isRecruiter ? 'Looking for jobs?' : 'Are you a recruiter?'}
             {' '}
-            <a href={`/login/${isRecruiter ? 'candidate' : 'recruiter'}`}>
-              Switch to {isRecruiter ? 'Job Seeker' : 'Recruiter'} Login
+            <a href={`/signup/${isRecruiter ? 'candidate' : 'recruiter'}`}>
+              Switch to {isRecruiter ? 'Job Seeker' : 'Recruiter'} Signup
             </a>
           </p>
         </div>
       </div>
 
-      {/* Demo credentials */}
+      {/* Demo note */}
       <div className="demo-info">
-        <p><strong>Demo Login:</strong></p>
-        <p>Email: demo@{role}.com</p>
-        <p>Password: password</p>
+        <p><strong>Demo Mode:</strong></p>
+        <p>Create an account with any email/password</p>
+        <p>Your data is stored locally in the browser</p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

@@ -4,7 +4,6 @@ import RAGSearch from '../components/RAGSearch';
 import JobMatchRecommendation from '../components/JobMatchRecommendation';
 import AISummaryGeneration from '../components/AISummaryGeneration';
 import KeywordOptimization from '../components/KeywordOptimization';
-import InteractiveDashboard from '../components/InteractiveDashboard';
 import RAGChatbot from '../components/RAGChatbot';
 import '../styles/dashboard.css';
 
@@ -46,13 +45,6 @@ const RecruiterDashboard = () => {
       description: 'Analyze resume-job match and calculate ATS scores',
       icon: '📊',
       component: KeywordOptimization
-    },
-    {
-      id: 'dashboard',
-      title: 'Interactive Dashboard',
-      description: 'View analytics, top skills, and recruitment trends',
-      icon: '📈',
-      component: InteractiveDashboard
     },
     {
       id: 'chatbot',

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { uploadResume } from '../api/api';
+import { useAuth } from '../context/AuthContext';
 
 /**
  * SmartResumeParsing Component
  * Allows users to upload resumes (PDF/DOCX) and preview the parsed text
  */
 const SmartResumeParsing = () => {
+  const { user } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewText, setPreviewText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,13 +34,25 @@ const SmartResumeParsing = () => {
       return;
     }
 
+    if (!user) {
+      setError('Please log in to upload a resume');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(false);
 
     try {
+      // Prepare user information
+      const userInfo = {
+        userId: user.id,
+        userName: user.name,
+        userEmail: user.email
+      };
+
       // Upload and parse resume via API
-      const response = await uploadResume(selectedFile);
+      const response = await uploadResume(selectedFile, userInfo);
       
       if (response.success) {
         const summary = response.data.summary;
@@ -46,7 +60,8 @@ const SmartResumeParsing = () => {
         // Display parsed information
         setPreviewText(
           `✅ Resume Parsed Successfully!\n\n` +
-          `Name: ${summary.name}\n` +
+          `Uploaded by: ${user.name}\n` +
+          `Name (from resume): ${summary.name}\n` +
           `Email: ${summary.email || 'Not found'}\n` +
           `Phone: ${summary.phone || 'Not found'}\n` +
           `Skills Found: ${summary.skillCount}\n` +

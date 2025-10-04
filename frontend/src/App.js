@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import RecruiterDashboard from './pages/RecruiterDashboard';
 import CandidateDashboard from './pages/CandidateDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -20,6 +21,9 @@ function App() {
           
           {/* Login routes */}
           <Route path="/login/:role" element={<Login />} />
+          
+          {/* Signup routes */}
+          <Route path="/signup/:role" element={<Signup />} />
           
           {/* Protected dashboard routes */}
           <Route 

@@ -57,11 +57,15 @@ api.interceptors.response.use(
 /**
  * Upload and parse resume
  * @param {File} file - Resume file (PDF/DOCX)
+ * @param {Object} userInfo - User information {userId, userName, userEmail}
  * @returns {Promise} - Parsed resume data
  */
-export const uploadResume = async (file) => {
+export const uploadResume = async (file, userInfo) => {
   const formData = new FormData();
   formData.append('resume', file);
+  formData.append('userId', userInfo.userId);
+  formData.append('userName', userInfo.userName);
+  formData.append('userEmail', userInfo.userEmail);
 
   const response = await api.post('/api/resume/upload', formData, {
     headers: {

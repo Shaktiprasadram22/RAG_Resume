@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SmartResumeParsing from '../components/SmartResumeParsing';
 import KeywordOptimization from '../components/KeywordOptimization';
 import AISummaryGeneration from '../components/AISummaryGeneration';
 import RAGChatbot from '../components/RAGChatbot';
@@ -8,6 +9,13 @@ const CandidateDashboard = () => {
   const [activeFeature, setActiveFeature] = useState(null);
 
   const features = [
+    {
+      id: 'upload-resume',
+      title: 'Upload My Resume',
+      description: 'Upload your CV to get started - PDF or DOCX format supported',
+      icon: '📄',
+      component: SmartResumeParsing
+    },
     {
       id: 'keyword-optimization',
       title: 'ATS Optimization Helper',
@@ -64,6 +72,10 @@ const CandidateDashboard = () => {
           <div className="tips-section">
             <h3>💡 Quick Tips for Job Seekers</h3>
             <div className="tips-grid">
+              <div className="tip-card">
+                <strong>Upload Your Resume First</strong>
+                <p>Start by uploading your CV - our AI will extract and analyze all your details</p>
+              </div>
               <div className="tip-card">
                 <strong>Optimize Your Resume</strong>
                 <p>Use our ATS helper to match keywords from job descriptions</p>

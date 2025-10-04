@@ -6,6 +6,21 @@
 import mongoose from 'mongoose';
 
 const resumeSchema = new mongoose.Schema({
+  // User who uploaded this resume
+  userId: {
+    type: String,
+    required: true,
+    index: true
+  },
+  uploaderName: {
+    type: String,
+    required: true
+  },
+  uploaderEmail: {
+    type: String,
+    required: true
+  },
+  // Resume details
   filename: {
     type: String,
     required: true

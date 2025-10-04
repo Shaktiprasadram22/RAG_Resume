@@ -20,17 +20,28 @@ export const searchResumes = async (jobDescription, resumes, topN = 10) => {
     // Find top similar resumes
     const topMatches = findTopSimilar(queryEmbedding, resumes, topN);
 
-    // Format results
-    const formattedResults = topMatches.map(match => ({
-      id: match._id || match.id,
-      name: match.name,
-      email: match.email,
-      skills: match.skills,
-      matchScore: Math.round(match.similarity * 100),
-      similarity: match.similarity,
-      education: match.education,
-      phone: match.phone
-    }));
+    // Format results - pass everything from database
+    const formattedResults = topMatches.map(match => {
+      // Log what we're getting from database
+      console.log('📄 Resume from DB:', {
+        id: match._id,
+        name: match.name,
+        email: match.email,
+        phone: match.phone,
+        uploaderName: match.uploaderName,
+        uploaderEmail: match.uploaderEmail,
+        filename: match.filename,
+        skills: match.skills,
+        education: match.education
+      });
+
+      return {
+        // Pass ALL fields from database
+        ...match._doc || match, // Get all MongoDB document fields
+        id: match._id?.toString() || match.id,
+        matchScore: Math.round(match.similarity * 100)
+      };
+    });
 
     return formattedResults;
   } catch (error) {

@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { getAllResumes, getJobRecommendations } from '../api/api';
-
+import { useAuth } from '../context/AuthContext';
 /**
  * JobMatchRecommendation Component
  * Display best-fit job recommendations with match percentage
  */
 const JobMatchRecommendation = () => {
-  const [jobMatches, setJobMatches] = useState([]);
+  const { user } = useAuth();
   const [resumes, setResumes] = useState([]);
   const [selectedResumeId, setSelectedResumeId] = useState('');
+  const [jobMatches, setJobMatches] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingResumes, setLoadingResumes] = useState(true);
   const [error, setError] = useState(null);
-
-  // Load resumes on mount
-  useEffect(() => {
-    loadResumes();
-  }, []);
 
   const loadResumes = async () => {
     try {
-      const response = await getAllResumes({ limit: 20 });
+      const params = { limit: 20 };
+      if (user) {
+        params.userId = user.id;
+        params.userRole = user.role;
+      }
+      const response = await getAllResumes(params);
       if (response.success) {
         setResumes(response.data.resumes || []);
         if (response.data.resumes && response.data.resumes.length > 0) {
@@ -105,6 +107,10 @@ const JobMatchRecommendation = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadResumes();
+  }, [user]);
 
   const handleRefresh = () => {
     if (selectedResumeId) {

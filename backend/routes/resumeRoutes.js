@@ -35,12 +35,24 @@ router.post('/upload', upload.single('resume'), asyncHandler(async (req, res) =>
     return errorResponse(res, 400, validation.error);
   }
 
+  // Get user info from request body
+  const { userId, userName, userEmail } = req.body;
+  
+  if (!userId || !userName || !userEmail) {
+    return errorResponse(res, 400, 'User information is required');
+  }
+
   // Parse resume
   const parsedData = await parseResume(
     req.file.buffer,
     req.file.mimetype,
     req.file.originalname
   );
+
+  // Add user information to parsed data
+  parsedData.userId = userId;
+  parsedData.uploaderName = userName;
+  parsedData.uploaderEmail = userEmail;
 
   // Save to database
   const resume = new Resume(parsedData);
@@ -54,19 +66,27 @@ router.post('/upload', upload.single('resume'), asyncHandler(async (req, res) =>
 
 /**
  * @route   GET /api/resume
- * @desc    Get all resumes
+ * @desc    Get resumes (filtered by user role)
  * @access  Public
  */
 router.get('/', asyncHandler(async (req, res) => {
-  const { limit = 50, skip = 0 } = req.query;
+  const { limit = 50, skip = 0, userId, userRole } = req.query;
   
-  const resumes = await Resume.find()
+  let query = {};
+  
+  // If candidate, only show their own resumes
+  if (userRole === 'candidate' && userId) {
+    query.userId = userId;
+  }
+  // If recruiter, show all resumes (no filter)
+  
+  const resumes = await Resume.find(query)
     .select('-rawText -embedding')
     .limit(parseInt(limit))
     .skip(parseInt(skip))
     .sort({ uploadedAt: -1 });
 
-  const total = await Resume.countDocuments();
+  const total = await Resume.countDocuments(query);
 
   return successResponse(res, 200, 'Resumes retrieved successfully', {
     resumes,
