@@ -1,15 +1,8 @@
-# ResumeRAG - AI-Powered Resume Intelligence Platform
+# ResumeRAG - AI Resume Management System
 
-<div align="center">
+**A full-stack web application for intelligent resume management with AI-powered matching and analysis.**
 
-**Full-stack application for intelligent resume analysis, job matching, and candidate search using RAG (Retrieval-Augmented Generation)**
-
-[![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Latest-green.svg)](https://www.mongodb.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-API-orange.svg)](https://openai.com/)
-
-</div>
+Built with React, Node.js, MongoDB, and OpenAI API.
 
 ---
 
@@ -51,104 +44,26 @@ http://localhost:3000
 
 ## ✨ Features
 
-### 🎯 Core Features
-
-1. **Smart Resume Parsing**
-   - Upload PDF/DOCX resumes
-   - Extract structured data (name, email, skills, education)
-   - Generate embeddings for semantic search
-
-2. **RAG-Powered Search**
-   - Semantic search using OpenAI embeddings
-   - Cosine similarity matching
-   - Natural language job description queries
-
-3. **Job Match Recommendations**
-   - AI-driven candidate-job matching
-   - Skill-based and semantic scoring
-   - Bidirectional matching (jobs→candidates, candidates→jobs)
-
-4. **AI Summary Generation**
-   - Professional resume summaries
-   - Job-specific tailored summaries
-   - Cover letter generation
-
-5. **Keyword Optimization**
-   - ATS score calculation
-   - Keyword gap analysis
-   - Optimization suggestions
-
-6. **Interactive Dashboard**
-   - Real-time analytics
-   - Top skills analysis
-   - Submission trends
-   - Education distribution
-
-7. **RAG Chatbot**
-   - Conversational AI interface
-   - Natural language queries
-   - Career advice
-   - Interview question generation
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Frontend (React)                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │ Parsing  │  │  Search  │  │ Matching │  │ Dashboard│   │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │
-│       │             │              │             │          │
-│       └─────────────┴──────────────┴─────────────┘          │
-│                          │                                  │
-│                    API Layer (Axios)                        │
-└──────────────────────────┼──────────────────────────────────┘
-                           │
-                     HTTP/REST API
-                           │
-┌──────────────────────────┼──────────────────────────────────┐
-│                    Backend (Express)                        │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │              Routes & Middleware                      │  │
-│  └────┬────────┬────────┬────────┬────────┬────────────┘  │
-│       │        │        │        │        │                │
-│  ┌────▼────┐┌──▼──┐┌───▼───┐┌───▼───┐┌───▼────┐          │
-│  │ Parsing ││Search││Matching││Summary││Chatbot │          │
-│  │ Module  ││Module││ Module ││Module ││ Module │          │
-│  └────┬────┘└──┬──┘└───┬───┘└───┬───┘└───┬────┘          │
-│       │        │        │        │        │                │
-│       └────────┴────────┴────────┴────────┘                │
-│                          │                                  │
-│       ┌──────────────────┼──────────────────┐              │
-│       │                  │                  │              │
-│  ┌────▼─────┐      ┌────▼────┐      ┌─────▼────┐         │
-│  │ MongoDB  │      │ OpenAI  │      │  Utils   │         │
-│  │ Database │      │   API   │      │ Helpers  │         │
-│  └──────────┘      └─────────┘      └──────────┘         │
-└─────────────────────────────────────────────────────────────┘
-```
+- **Smart Resume Upload** - Upload and parse PDF/DOCX resumes
+- **AI-Powered Search** - Find matching candidates using job descriptions
+- **Role-Based Access** - Separate dashboards for Recruiters and Job Seekers
+- **Keyword Optimization** - ATS score calculator
+- **AI Summary Generator** - Generate professional summaries
+- **Chatbot Assistant** - Get career advice and tips
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework:** React 18.2.0 (JavaScript)
-- **HTTP Client:** Axios 1.6.0
-- **Styling:** Pure CSS (no frameworks)
-- **State Management:** React Hooks (useState, useEffect)
+**Frontend:**
+- React 18
+- React Router
+- Axios
 
-### Backend
-- **Runtime:** Node.js 16+
-- **Framework:** Express 4.18.2
-- **Database:** MongoDB with Mongoose 8.0.3
-- **AI/ML:** OpenAI API (GPT-3.5 Turbo, Text Embeddings)
-- **File Processing:** Multer, pdf-parse, mammoth
-- **Authentication:** JWT (placeholder)
+**Backend:**
+- Node.js + Express
+- MongoDB (Mongoose)
+- OpenAI API
+- Multer (file uploads)
 
-### DevOps
-- **Package Manager:** npm
-- **Environment:** dotenv
-- **Development:** nodemon
-- **CORS:** cors middleware
 
 ## 📁 Project Structure
 

@@ -1,20 +1,20 @@
 # ResumeRAG - Complete Setup Guide
 
-Complete guide for setting up and running the ResumeRAG application (Frontend + Backend).
+Simple guide to get ResumeRAG running on your local machine.
 
-## 📋 Prerequisites
+---
 
-Before you begin, ensure you have the following installed:
+## 📋 What You Need
 
-- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
-- **MongoDB** (local or MongoDB Atlas) - [Download](https://www.mongodb.com/try/download/community)
-- **npm** or **yarn** package manager
-- **OpenAI API Key** (optional, for AI features) - [Get Key](https://platform.openai.com/api-keys)
+- **Node.js** (v16+) - [Download](https://nodejs.org/)
+- **MongoDB Atlas Account** (Free) - [Sign Up](https://www.mongodb.com/cloud/atlas)
+- **OpenAI API Key** (Optional) - [Get Key](https://platform.openai.com/api-keys)
 
 ## 🗂️ Project Structure
 
 ```
 RAG Resume/
+{{ ... }}
 ├── frontend/                    # React application
 │   ├── public/
 │   ├── src/
