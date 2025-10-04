@@ -51,6 +51,62 @@ http://localhost:3000
 - **AI Summary Generator** - Generate professional summaries
 - **Chatbot Assistant** - Get career advice and tips
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        A[React Frontend<br/>Port: 3000]
+    end
+    
+    subgraph "API Layer"
+        B[Express Server<br/>Port: 5000]
+        C[REST API Endpoints]
+        D[Middleware<br/>Auth, Logger, Error Handler]
+    end
+    
+    subgraph "Business Logic"
+        E[Smart Resume Parser]
+        F[RAG Search Engine]
+        G[Job Matcher]
+        H[AI Summary Generator]
+        I[Keyword Optimizer]
+        J[Dashboard Analytics]
+        K[RAG Chatbot]
+    end
+    
+    subgraph "Data Layer"
+        L[(MongoDB<br/>Resumes & Jobs)]
+        M[OpenAI API<br/>Embeddings & GPT]
+    end
+    
+    A -->|HTTP Requests| B
+    B --> C
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    D --> J
+    D --> K
+    
+    E -->|Store| L
+    F -->|Query| L
+    G -->|Match| L
+    J -->|Analytics| L
+    
+    E -->|Generate Embeddings| M
+    F -->|Similarity Search| M
+    H -->|Generate Summary| M
+    K -->|Chat Completion| M
+    
+    style A fill:#61dafb
+    style B fill:#68a063
+    style L fill:#4db33d
+    style M fill:#10a37f
+```
+
 ## 🛠️ Tech Stack
 
 **Frontend:**
@@ -191,52 +247,374 @@ Expected response:
 }
 ```
 
-## 📡 API Documentation
+## 📡 API Endpoints
 
 ### Base URL
 ```
 http://localhost:5000/api
 ```
 
-### Endpoints
+### 📄 Resume APIs
 
-#### Resume Endpoints
+#### 1. Upload Resume
+```http
+POST /api/resume/upload
+Content-Type: multipart/form-data
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/resume/upload` | Upload and parse resume |
-| GET | `/resume` | Get all resumes |
-| GET | `/resume/:id` | Get resume by ID |
-| POST | `/resume/search` | Search resumes (RAG) |
-| POST | `/resume/:id/generate-summary` | Generate AI summary |
-| POST | `/resume/:id/optimize-keywords` | Keyword analysis |
+Body: 
+- resume: File (PDF/DOCX)
+- userId: String (optional)
+- uploaderName: String (optional)
+- uploaderEmail: String (optional)
 
-#### Job Endpoints
+Response:
+{
+  "success": true,
+  "data": {
+    "_id": "resume_id",
+    "filename": "john_doe.pdf",
+    "name": "John Doe",
+    "email": "john@email.com",
+    "phone": "+1-234-567-8900",
+    "skills": ["JavaScript", "React", "Node.js"],
+    "education": ["B.S. Computer Science"],
+    "embedding": [0.123, ...],
+    "uploadedAt": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/jobs` | Create job posting |
-| GET | `/jobs` | Get all jobs |
-| POST | `/jobs/:id/find-candidates` | Find matching candidates |
-| POST | `/jobs/recommend` | Get job recommendations |
+#### 2. Get All Resumes
+```http
+GET /api/resume?userId=user123
 
-#### Chatbot Endpoints
+Response:
+{
+  "success": true,
+  "data": {
+    "resumes": [...],
+    "total": 10
+  }
+}
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/chatbot/message` | Send chat message |
-| POST | `/chatbot/search` | Natural language search |
-| GET | `/chatbot/greeting` | Get greeting message |
+#### 3. Get Resume by ID
+```http
+GET /api/resume/:id
 
-#### Dashboard Endpoints
+Response:
+{
+  "success": true,
+  "data": {
+    "_id": "resume_id",
+    "filename": "resume.pdf",
+    "name": "John Doe",
+    ...
+  }
+}
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/dashboard/stats` | Dashboard statistics |
-| GET | `/dashboard/top-skills` | Top skills analysis |
-| GET | `/dashboard/analytics` | Comprehensive analytics |
+#### 4. RAG Search Resumes
+```http
+POST /api/resume/search
+Content-Type: application/json
 
-See detailed API documentation in `backend/README.md`
+Body:
+{
+  "jobDescription": "Looking for React developer with 3 years experience",
+  "limit": 10
+}
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "id": "resume_id",
+      "name": "John Doe",
+      "email": "john@email.com",
+      "matchScore": 85,
+      "skills": ["React", "JavaScript"],
+      ...
+    }
+  ]
+}
+```
+
+#### 5. Generate AI Summary
+```http
+POST /api/resume/:id/generate-summary
+Content-Type: application/json
+
+Body:
+{
+  "jobDescription": "Senior React Developer role" (optional)
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "summary": "Experienced software engineer with 5+ years...",
+    "resumeId": "resume_id"
+  }
+}
+```
+
+#### 6. Keyword Optimization
+```http
+POST /api/resume/:id/optimize-keywords
+Content-Type: application/json
+
+Body:
+{
+  "jobDescription": "React developer with TypeScript experience..."
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "atsScore": 75,
+    "matchedKeywords": ["React", "JavaScript"],
+    "missingKeywords": ["TypeScript", "Redux"],
+    "suggestions": ["Add TypeScript to skills section"]
+  }
+}
+```
+
+#### 7. Delete Resume
+```http
+DELETE /api/resume/:id
+
+Response:
+{
+  "success": true,
+  "message": "Resume deleted successfully"
+}
+```
+
+---
+
+### 💼 Job APIs
+
+#### 1. Create Job
+```http
+POST /api/jobs
+Content-Type: application/json
+
+Body:
+{
+  "title": "Senior React Developer",
+  "company": "Tech Corp",
+  "description": "We are looking for...",
+  "requiredSkills": ["React", "TypeScript"],
+  "location": "Remote",
+  "salary": "$120k-$150k"
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "_id": "job_id",
+    "title": "Senior React Developer",
+    "embedding": [...],
+    ...
+  }
+}
+```
+
+#### 2. Get All Jobs
+```http
+GET /api/jobs
+
+Response:
+{
+  "success": true,
+  "data": {
+    "jobs": [...],
+    "total": 25
+  }
+}
+```
+
+#### 3. Find Matching Candidates
+```http
+POST /api/jobs/:id/find-candidates
+Content-Type: application/json
+
+Body:
+{
+  "limit": 10
+}
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "resumeId": "resume_id",
+      "name": "John Doe",
+      "matchScore": 92,
+      "matchedSkills": ["React", "TypeScript"],
+      "missingSkills": []
+    }
+  ]
+}
+```
+
+#### 4. Get Job Recommendations
+```http
+POST /api/jobs/recommend
+Content-Type: application/json
+
+Body:
+{
+  "resumeId": "resume_id",
+  "limit": 5
+}
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "jobId": "job_id",
+      "title": "React Developer",
+      "company": "Tech Corp",
+      "matchPercentage": 88,
+      "matchedSkills": ["React", "Node.js"]
+    }
+  ]
+}
+```
+
+---
+
+### 💬 Chatbot APIs
+
+#### 1. Send Message
+```http
+POST /api/chatbot/message
+Content-Type: application/json
+
+Body:
+{
+  "message": "How do I improve my resume?",
+  "context": "resume_context" (optional)
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "reply": "Here are some tips to improve your resume...",
+    "timestamp": "2024-01-01T00:00:00.000Z"
+  }
+}
+```
+
+#### 2. Natural Language Search
+```http
+POST /api/chatbot/search
+Content-Type: application/json
+
+Body:
+{
+  "query": "Find React developers with 5 years experience"
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "results": [...],
+    "count": 5
+  }
+}
+```
+
+#### 3. Get Greeting
+```http
+GET /api/chatbot/greeting
+
+Response:
+{
+  "success": true,
+  "data": {
+    "message": "Hello! I'm your AI career assistant. How can I help you today?"
+  }
+}
+```
+
+---
+
+### 📊 Dashboard APIs
+
+#### 1. Get Statistics
+```http
+GET /api/dashboard/stats
+
+Response:
+{
+  "success": true,
+  "data": {
+    "totalResumes": 248,
+    "activeJobs": 56,
+    "matchesFound": 892,
+    "successRate": "94%"
+  }
+}
+```
+
+#### 2. Get Top Skills
+```http
+GET /api/dashboard/top-skills?limit=10
+
+Response:
+{
+  "success": true,
+  "data": {
+    "topSkills": [
+      { "skill": "JavaScript", "count": 150 },
+      { "skill": "React", "count": 120 },
+      { "skill": "Python", "count": 95 }
+    ]
+  }
+}
+```
+
+#### 3. Get Analytics
+```http
+GET /api/dashboard/analytics
+
+Response:
+{
+  "success": true,
+  "data": {
+    "resumesByMonth": [...],
+    "topSkills": [...],
+    "educationDistribution": [...],
+    "matchStatistics": {...}
+  }
+}
+```
+
+---
+
+### 🔒 Health Check
+
+```http
+GET /health
+
+Response:
+{
+  "status": "OK",
+  "message": "ResumeRAG API is running",
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}
+```
 
 ## 🎨 Component Overview
 
