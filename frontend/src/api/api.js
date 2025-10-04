@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 // Base URL from environment variable
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://resumerag-api.onrender.com';
 
 // Create axios instance with default config
 const api = axios.create({
