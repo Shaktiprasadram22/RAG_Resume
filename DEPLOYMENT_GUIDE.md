@@ -180,7 +180,7 @@ Visit these URLs in your browser:
 
 **Live Application URL**:
 ```
-https://your-app.vercel.app
+https://rag-resume-nine.vercel.app
 ```
 
 **Backend API URL**:
