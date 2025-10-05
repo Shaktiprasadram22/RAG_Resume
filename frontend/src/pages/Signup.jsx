@@ -167,7 +167,8 @@ const Signup = () => {
       {/* Demo note */}
       <div className="demo-info">
         <p><strong>Demo Mode:</strong></p>
-        <p>Create an account with any email/password</p>
+        <p>Default admin login available: admin@mail.com / admin123</p>
+        <p>Or create an account with any email/password</p>
         <p>Your data is stored locally in the browser</p>
       </div>
     </div>

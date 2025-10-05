@@ -14,6 +14,41 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Initialize default credentials on first load
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    
+    // Check if default admin accounts exist
+    const hasRecruiterAdmin = users.some(u => u.email === 'admin@mail.com' && u.role === 'recruiter');
+    const hasCandidateAdmin = users.some(u => u.email === 'admin@mail.com' && u.role === 'candidate');
+    
+    // Create default accounts if they don't exist
+    if (!hasRecruiterAdmin) {
+      users.push({
+        email: 'admin@mail.com',
+        password: 'admin123',
+        role: 'recruiter',
+        name: 'Admin Recruiter',
+        id: 'recruiter_admin_001'
+      });
+    }
+    
+    if (!hasCandidateAdmin) {
+      users.push({
+        email: 'admin@mail.com',
+        password: 'admin123',
+        role: 'candidate',
+        name: 'Admin Candidate',
+        id: 'candidate_admin_001'
+      });
+    }
+    
+    // Save updated users list
+    if (!hasRecruiterAdmin || !hasCandidateAdmin) {
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+    }
+  }, []);
+
   // Check for existing session on mount
   useEffect(() => {
     const savedUser = localStorage.getItem('user');

@@ -122,11 +122,11 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Demo credentials */}
+      {/* Default credentials */}
       <div className="demo-info">
-        <p><strong>Demo Login:</strong></p>
-        <p>Email: demo@{role}.com</p>
-        <p>Password: password</p>
+        <p><strong>Default Admin Login:</strong></p>
+        <p>Email: admin@mail.com</p>
+        <p>Password: admin123</p>
       </div>
     </div>
   );
